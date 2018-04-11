@@ -31,6 +31,11 @@ export default class Users extends React.Component {
             this.getUsersAPI()
         })
     }
+    componentWillMount(){
+        if(!sessionStorage.getItem('user')){
+            window.location.href = "/"
+        }
+    }
     componentDidMount(){
         this.getUsersAPI()
     }
