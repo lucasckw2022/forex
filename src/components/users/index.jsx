@@ -13,7 +13,7 @@ export default class Users extends React.Component {
         }
         this.createAPI = this.createAPI.bind(this)
     }
-    loginAPI(){
+    getUsersAPI(){
         axios({
             method: 'get',
             url: 'http://neat-mvp-api.herokuapp.com/v1/users'
@@ -28,10 +28,11 @@ export default class Users extends React.Component {
             params: formData
         }).then((response)=>{
             this.setState({showModal: false})
+            this.getUsersAPI()
         })
     }
     componentDidMount(){
-        this.loginAPI()
+        this.getUsersAPI()
     }
 
     render(){
@@ -53,7 +54,7 @@ export default class Users extends React.Component {
                             {Object.values(this.state.users).map((item, id)=>{
                                 let name = item.first_name || item.last_name ? `${item.first_name ? item.first_name : ''} ${item.last_name ? item.last_name : '' }` : 'No Name'
                                 return (<CollapsibleItem
-                                    header={`User ${id}: ${name}`}
+                                    header={`User ${id + 1}: ${name}`}
                                 >
                                     <GetUserInfo 
                                             userId={item.id}
